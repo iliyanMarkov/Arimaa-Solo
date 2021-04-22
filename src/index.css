@@ -11,8 +11,32 @@ li {
     margin-bottom: 10px;
 }
 
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.play-field {
+    display: flex;
+    width: 95vmin;
+    height: 95vmin;
+    margin-right: 1vmin;
+    margin-left: 5vmin;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+    flex-direction: column;
+}
+
+.board-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 5.5vmin;
+    align-items: center;
+}
+
 .new-game-btn {
-    margin-right: 15vmin;
     color: #fff;
     background-color: #343a40;
     border-color: #343a40; 
@@ -22,56 +46,12 @@ li {
 }
 
 .end-turn-btn {
-    margin-left: 15vmin;
     color: #fff;
     background-color: #343a40;
     border-color: #343a40;
     font-size: 2vmin;
     height: 7.4vmin;
     width: 15vmin;
-}
-
-.turns-btns {
-    margin: 0;
-    color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
-    font-size: 2vmin;
-    height: 4vmin;
-    width: 32vmin;
-}
-
-
-.moves-btns {
-    color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
-    font-size: 1.6vmin;
-    height: 4vmin;
-    width: 8vmin;
-}
-
-
-.game {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.play-field {
-    justify-content: center;
-    width: 95vmin;
-    height: 95vmin;
-    margin-top: 0 auto;
-    margin-bottom: 0 auto;
-    margin-right: 1vmin;
-    margin-left: 5vmin;
-}
-
-.board-info {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
-    font-size: 5.5vmin;
 }
 
 .board {
@@ -99,10 +79,10 @@ li {
 }
 
 .cell img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .cell:focus {
@@ -114,14 +94,45 @@ li {
 }
 
 .game-info {
+    overflow: auto;
     position: relative;
     margin-top: 7.5vmin;  
-    width: 32vmin;
+    width: 32.2vmin;
     height: 85vmin;
 }
 
+.turns-btns-gold {
+    margin: 0;
+    color: black;
+    background-color: #FFD700;
+    border-color: #343a40;
+    font-size: 2vmin;
+    font-weight: bold;
+    font-style: italic;
+    height: 4vmin;
+    width: 30vmin;
+}
 
+.turns-btns-silver {
+    margin: 0;
+    color: black;
+    background-color: #A9A9A9;
+    border-color: #343a40;
+    font-size: 2vmin;
+    font-weight: bold;
+    font-style: italic;
+    height: 4vmin;
+    width: 30vmin;
+}
 
+.moves-btns {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+    font-size: 2vmin;
+    height: 4vmin;
+    width: 6vmin;
+}
 
 .silver {
     color: silver;
@@ -136,12 +147,20 @@ li {
     background-size: 80px;
 }
 
-.own-selected {
-    border: 3px solid white;
+.gold-own-selected {
+    border: 0.4vmin outset gold;
 }
 
-.enemy-selected {
-    border: 3px dotted white;
+.enemy-gold-selected {
+    border: 0.4vmin dotted gold;
+}
+
+.silver-own-selected {
+    border: 0.4vmin outset silver;
+}
+
+.enemy-silver-selected {
+    border: 0.4vmin dotted silver;
 }
 
 .history-turns {

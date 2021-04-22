@@ -1,4 +1,4 @@
-export default function Traps(board) {
+export default function checkTraps(board) {
     // Traps Neighbors
     const trapOneNeighbors = [board[1][2][1]/*top*/, board[3][2][1]/*bot*/, board[2][1][1]/*left*/, board[2][3][1]/*right*/]
     const trapTwoNeighbors = [board[1][5][1]/*top*/, board[3][5][1]/*bot*/, board[2][4][1]/*left*/, board[2][6][1]/*right*/]
