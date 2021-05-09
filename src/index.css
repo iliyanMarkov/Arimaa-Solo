@@ -3,19 +3,12 @@ body {
     margin: 20px;
 }
 
-ol, ul {
-    padding-left: 15px;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
 .game {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .play-field {
     display: flex;
     width: 95vmin;
@@ -43,6 +36,11 @@ li {
     font-size: 2vmin;
     height: 7.4vmin;
     width: 15vmin;
+    transition: all 0.3s ease-out;
+}
+
+.new-game-btn:hover {
+  background: #464e55;
 }
 
 .end-turn-btn {
@@ -52,6 +50,11 @@ li {
     font-size: 2vmin;
     height: 7.4vmin;
     width: 15vmin;
+    transition: all 0.3s ease-out;
+}
+
+.end-turn-btn:hover {
+  background: #464e55;
 }
 
 .board {
@@ -63,6 +66,7 @@ li {
     margin: 0 auto;
 
 }
+
 .cell {
     background: #9a7b4f;
     border: 0.3vmin solid black;
@@ -95,10 +99,87 @@ li {
 
 .game-info {
     overflow: auto;
-    position: relative;
-    margin-top: 7.5vmin;  
+    position: relative; 
     width: 32.2vmin;
     height: 85vmin;
+}
+
+.box {
+    margin: 0;
+    background: rgba(255,255,255,0.2);
+    padding: 2.5vmin;
+    text-align: center;
+}
+
+.tutorial {
+    margin: 0;
+    color: white;
+    background-color: #343a40;
+    border-color: #343a40;
+    font-size: 2vmin;
+    font-family: Arial;
+    height: 4vmin;
+    width: 30vmin;
+    padding: 1.5vmin;
+    text-decoration: none;
+    transition: all 0.3s ease-out;
+}
+
+.tutorial:hover {
+    background: #464e55;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.instructions {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    height: 80vmin;
+    width: 80vmin;
+    position: relative;
+    transition: all 5s ease-in-out;
+    align-items: center;
+}
+
+.instructions .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #343a40;
+}
+
+.close:hover {
+    color: #06D85F;
+}
+
+.images {
+    height: 80vmin;
+    width: 80vmin;
+}
+
+.history-turns {
+    margin-top: 30px;
 }
 
 .turns-btns-gold {
@@ -111,6 +192,11 @@ li {
     font-style: italic;
     height: 4vmin;
     width: 30vmin;
+    transition: all 0.3s ease-out;
+}
+
+.turns-btns-gold:hover {
+    background: #e2c103;
 }
 
 .turns-btns-silver {
@@ -123,6 +209,11 @@ li {
     font-style: italic;
     height: 4vmin;
     width: 30vmin;
+    transition: all 0.3s ease-out;
+}
+
+.turns-btns-silver:hover {
+    background: #979797;
 }
 
 .moves-btns {
@@ -132,19 +223,15 @@ li {
     font-size: 2vmin;
     height: 4vmin;
     width: 6vmin;
+    transition: all 0.3s ease-out;
 }
 
-.silver {
-    color: silver;
+.moves-btns:hover {
+    background: #464e55;
 }
 
 .gold {
     color: gold;
-}
-
-.trap {
-    background-image: url("./components/img/trap.png");
-    background-size: 80px;
 }
 
 .gold-own-selected {
@@ -152,7 +239,11 @@ li {
 }
 
 .enemy-gold-selected {
-    border: 0.4vmin dotted gold;
+    border: 0.4vmin dashed gold;
+}
+
+.silver {
+    color: silver;
 }
 
 .silver-own-selected {
@@ -160,10 +251,40 @@ li {
 }
 
 .enemy-silver-selected {
-    border: 0.4vmin dotted silver;
+    border: 0.4vmin dashed silver;
 }
 
-.history-turns {
-    margin-top: 30px;
+.trap {
+    background-image: url("./components/img/trap.png");
+    background-size: 80px;
 }
 
+.next {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 3.5vmin;
+    font-weight: bold;
+    text-decoration: none;
+    color: #343a40;
+}
+
+.next:hover {
+    color: #06D85F;
+}
+
+.previous {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    transition: all 200ms;
+    font-size: 3.5vmin;
+    font-weight: bold;
+    text-decoration: none;
+    color: #343a40;
+}
+
+.previous:hover {
+    color: #06D85F;
+}
