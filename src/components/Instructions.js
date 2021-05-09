@@ -49,7 +49,6 @@ const instructionPhotos = {
 }
 
 export const Instructions = memo(() => {
-
     const [currentPicture, setCurrentPicture] = useState(1)
 
     const nextPhoto = ()  => {

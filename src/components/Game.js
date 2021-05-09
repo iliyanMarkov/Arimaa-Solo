@@ -21,52 +21,52 @@ import elephantG from './img/6_gold.png'
 import elephantS from './img/6_silver.png'
 import trap from "./img/trap.png"
 
-    const GOLD = 'gold'
-    const SILVER = 'silver'
-    const powerToImg = {
-        [`1 ${GOLD}`]: rabbitG,
-        [`2 ${GOLD}`]: catG,
-        [`3 ${GOLD}`]: wolfG,
-        [`4 ${GOLD}`]: horseG,
-        [`5 ${GOLD}`]: camelG,
-        [`6 ${GOLD}`]: elephantG,
-        [`1 ${SILVER}`]: rabbitS,
-        [`2 ${SILVER}`]: catS,
-        [`3 ${SILVER}`]: wolfS,
-        [`4 ${SILVER}`]: horseS,
-        [`5 ${SILVER}`]: camelS,
-        [`6 ${SILVER}`]: elephantS,
-        [`0 trap`]: trap
-    }
-    const rabbitsRow = [...Array(8).keys()].map(() => [1])
-    const otherAnimalsRow = [[2], [4], [3], [6], [5], [3], [4], [2]]
-    const trapsRow = [[null], [null], [0, 'trap'], [null], [null], [0, 'trap'], [null], [null]]
-    const defaultHistory = [
-        [
-            {
-                playerOnTurn: GOLD,
-                movesLeft: 4,
-                winner: null,
-                board: [...Array(8).keys()].map(idx => {
-                    switch (idx) {
-                        case 0:
-                            return rabbitsRow.map(rabbit => rabbit.concat(SILVER))
-                        case 1:
-                            return otherAnimalsRow.map(animal => animal.concat(SILVER))
-                        case 2:
-                        case 5:
-                            return trapsRow
-                        case 6:
-                            return otherAnimalsRow.map(animal => animal.concat(GOLD))
-                        case 7:
-                            return rabbitsRow.map(rabbit => rabbit.concat(GOLD))
-                        default:
-                            return [...Array(8).keys()].map(() => [null])
-                    }
-                })
-            }
-        ]
+const GOLD = 'gold'
+const SILVER = 'silver'
+const powerToImg = {
+    [`1 ${GOLD}`]: rabbitG,
+    [`2 ${GOLD}`]: catG,
+    [`3 ${GOLD}`]: wolfG,
+    [`4 ${GOLD}`]: horseG,
+    [`5 ${GOLD}`]: camelG,
+    [`6 ${GOLD}`]: elephantG,
+    [`1 ${SILVER}`]: rabbitS,
+    [`2 ${SILVER}`]: catS,
+    [`3 ${SILVER}`]: wolfS,
+    [`4 ${SILVER}`]: horseS,
+    [`5 ${SILVER}`]: camelS,
+    [`6 ${SILVER}`]: elephantS,
+    [`0 trap`]: trap
+}
+const rabbitsRow = [...Array(8).keys()].map(() => [1])
+const otherAnimalsRow = [[2], [4], [3], [6], [5], [3], [4], [2]]
+const trapsRow = [[null], [null], [0, 'trap'], [null], [null], [0, 'trap'], [null], [null]]
+const defaultHistory = [
+    [
+        {
+            playerOnTurn: GOLD,
+            movesLeft: 4,
+            winner: null,
+            board: [...Array(8).keys()].map(idx => {
+                switch (idx) {
+                    case 0:
+                        return rabbitsRow.map(rabbit => rabbit.concat(SILVER))
+                    case 1:
+                        return otherAnimalsRow.map(animal => animal.concat(SILVER))
+                    case 2:
+                    case 5:
+                        return trapsRow
+                    case 6:
+                        return otherAnimalsRow.map(animal => animal.concat(GOLD))
+                    case 7:
+                        return rabbitsRow.map(rabbit => rabbit.concat(GOLD))
+                    default:
+                        return [...Array(8).keys()].map(() => [null])
+                }
+            })
+        }
     ]
+]
     
 export const Game = memo(() => {
     const [history, setHistory] = useState(defaultHistory)
@@ -149,7 +149,7 @@ export const Game = memo(() => {
             cellIdx < 7 ? board[rowIdx][cellIdx + 1] : undefined,
             rowIdx < 7 ? board[rowIdx + 1][cellIdx] : undefined
         ]
-        
+
         //Rearrange figures in the first two turns
         if (history.length < 3 && ownSelRow !== undefined && board[rowIdx][cellIdx][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
             const newHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
