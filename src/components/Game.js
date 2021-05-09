@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { Button } from 'react-bootstrap'
+
 import {MoveHistory} from './MoveHistory'
 import {TurnHistory} from './TurnHistory'
 import {EndTurn} from './EndTurn'
@@ -150,6 +150,20 @@ export const Game = memo(() => {
             rowIdx < 7 ? board[rowIdx + 1][cellIdx] : undefined
         ]
         
+        //Rearrange figures in the first two turns
+        if (history.length < 3 && ownSelRow !== undefined && board[rowIdx][cellIdx][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
+            const newHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
+            const switchedFigure = board[rowIdx][cellIdx]
+            
+            board[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
+            board[ownSelRow][ownSelCell] = switchedFigure
+
+            setHistory(newHistory)
+            setSelected([])
+            setSelectedCell([])
+            return
+        }
+
         // Set the selected figure 
         if (clickedFigurePower > 0 && clickedFigureOwner === playerOnTurn) {
             setSelected(board[rowIdx][cellIdx])
@@ -167,20 +181,6 @@ export const Game = memo(() => {
                     setEnemySelectedCell(cellIdx)
                 }                       
             }       
-        }
-
-        //Rearrange figures in the first two turns
-        if (history.length < 3 && ownSelRow !== undefined && board[rowIdx][cellIdx][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
-            const newHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
-            const switchedFigure = board[rowIdx][cellIdx]
-            
-            board[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
-            board[ownSelRow][ownSelCell] = switchedFigure
-
-            setHistory(newHistory)
-            setSelected([])
-            setSelectedCell([])
-            return
         }
         
         // Selecting own figure
