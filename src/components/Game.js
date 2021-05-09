@@ -170,7 +170,7 @@ export const Game = memo(() => {
         }
 
         //Rearrange figures in the first two turns
-        if (history.length < 3 && ownSelRow !== undefined && board[ownSelRow][ownSelCell][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
+        if (history.length < 3 && ownSelRow !== undefined && board[rowIdx][cellIdx][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
             const newHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
             const switchedFigure = board[rowIdx][cellIdx]
             
@@ -335,8 +335,10 @@ export const Game = memo(() => {
                         setEnemySelectedRow={setEnemySelectedRow}
                         setEnemySelectedCell={setEnemySelectedCell}                         
                     />
+
                     {
-                       typeof(checkForWinner()) === 'string' ? `Winner is ${checkForWinner()}` 
+                       history.length < 3 ? `Rearrange figures`
+                       : typeof(checkForWinner()) === 'string' ? `Winner is ${checkForWinner()}` 
                        : `Moves left: ${history[currentTurn][currentMove].movesLeft}`
                     }
                     <EndTurn
