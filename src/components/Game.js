@@ -194,7 +194,7 @@ export const Game = memo(() => {
         }
 
         // Moving figure
-        if (ownSelRow !== undefined && selectedCell.length === 2 && board[ownSelRow][ownSelCell][1] === playerOnTurn && currentMove < 4 && movesLeft > 0) {
+        if (history.length > 2 && ownSelRow !== undefined && selectedCell.length === 2 && board[ownSelRow][ownSelCell][1] === playerOnTurn && currentMove < 4 && movesLeft > 0) {
             const nextHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
             const nextBoard = board.map(row => [...row])       
             const clickedFigure = board[ownSelRow][ownSelCell]
