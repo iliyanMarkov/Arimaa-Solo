@@ -71,12 +71,13 @@ export const Instructions = memo(() => {
 
             <div id="popup" class="overlay">
             	<div class="instructions">
-            		<a class="close" href="#">&times;</a>
+            		<a class="close" href="http://localhost:3000/#">&times;</a>
             		<div>
                         <a class="previous" href="#popup" onClick={previousPhoto}>Previous</a>
                         <a class="next" href="#popup" onClick={nextPhoto}>Next</a>
             		    {
                             <img
+                                alt='The instruction images'
                                 class="images"
                                 src={instructionPhotos[currentPicture]}
                             /> 

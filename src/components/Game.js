@@ -91,6 +91,7 @@ export const Game = memo(() => {
             if ( board[0][i][0] === 1 && board[0][i][1] === GOLD || silverRabbitsLeft === undefined ) {
                 return GOLD
             }
+            
             if ( board[7][i][0] === 1 && board[7][i][1] === SILVER || goldRabbitsLeft === undefined) {
                 return SILVER
             }
