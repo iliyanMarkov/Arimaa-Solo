@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import defaultHistory from './Game'
 
 export const NewGame = memo((props = {}) => {
     const {setHistory, setCurrentTurn, setCurrentMove, setSelectedCell, setSelected, setEnemySelected, setEnemySelectedRow, setEnemySelectedCell} = props
