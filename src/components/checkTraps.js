@@ -1,23 +1,23 @@
-export default function checkTraps(board) {
-    // Traps Neighbors
-    const trapOneNeighbors = [board[1][2][1]/*top*/, board[3][2][1]/*bot*/, board[2][1][1]/*left*/, board[2][3][1]/*right*/]
-    const trapTwoNeighbors = [board[1][5][1]/*top*/, board[3][5][1]/*bot*/, board[2][4][1]/*left*/, board[2][6][1]/*right*/]
-    const trapThreeNeighbors = [board[4][2][1]/*top*/, board[6][2][1]/*bot*/, board[5][1][1]/*left*/, board[5][3][1]/*right*/]
-    const trapFourNeighbors = [board[4][5][1]/*top*/, board[6][5][1]/*bot*/, board[5][4][1]/*left*/, board[5][6][1]/*right*/]
-    // Check if traps are protected
-    board[2][2][0] === null ? board[2][2] = [0, 'trap'] 
-    : trapOneNeighbors.includes(board[2][2][1]) === true ?  board[2][2] = board[2][2] 
-    : board[2][2] = [0, 'trap']
+export const checkTraps = (board) => {
+    const friendlyNeighborsOfTraps = []
+    const traps = [[2, 2],[2, 5], [5, 2], [5, 5]]
+    const trapsOwners = [
+        board[2][2][1],
+        board[2][5][1], 
+        board[5][2][1], 
+        board[5][5][1]
+    ]
+    
+    for (let i = 0; i < 4; i++) {
+        friendlyNeighborsOfTraps.push([ 
+            board[traps[i][0] - 1][traps[i][1]]/*top*/,
+            board[traps[i][0] + 1][traps[i][1]]/*bot*/,
+            board[traps[i][0]][traps[i][1] - 1]/*left*/,
+            board[traps[i][0]][traps[i][1] + 1]/*right*/
+        ].flat().filter(elem => elem === trapsOwners[i]))
 
-    board[2][5][0] === null ? board[2][5] = [0, 'trap'] 
-    : trapTwoNeighbors.includes(board[2][5][1]) === true ?  board[2][5] = board[2][5] 
-    : board[2][5] = [0, 'trap']
-
-    board[5][2][0] === null ? board[5][2] = [0, 'trap'] 
-    : trapThreeNeighbors.includes(board[5][2][1]) === true ?  board[5][2] = board[5][2] 
-    : board[5][2] = [0, 'trap']
-
-    board[5][5][0] === null ? board[5][5] = [0, 'trap'] 
-    : trapFourNeighbors.includes(board[5][5][1]) === true ? board[5][5] = board[5][5] 
-    : board[5][5] = [0, 'trap']
+        if (friendlyNeighborsOfTraps[i].includes(trapsOwners[i]) === false) {
+            board[traps[i][0]][traps[i][1]] = [0, 'trap']
+        }
+    }
 }
