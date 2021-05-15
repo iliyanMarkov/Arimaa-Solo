@@ -19,8 +19,9 @@ import camelG from './img/5_gold.png'
 import camelS from './img/5_silver.png'
 import elephantG from './img/6_gold.png'
 import elephantS from './img/6_silver.png'
-import trap from "./img/trap.png"
 
+// TODO: change cellIdx to colIdx and other cell names
+// TODO: prevent no change turn
 const GOLD = 'gold'
 const SILVER = 'silver'
 const powerToImg = {
@@ -35,12 +36,10 @@ const powerToImg = {
     [`3 ${SILVER}`]: wolfS,
     [`4 ${SILVER}`]: horseS,
     [`5 ${SILVER}`]: camelS,
-    [`6 ${SILVER}`]: elephantS,
-    [`0 trap`]: trap
+    [`6 ${SILVER}`]: elephantS
 }
 const rabbitsRow = [...Array(8).keys()].map(() => [1])
 const otherAnimalsRow = [[2], [4], [3], [6], [5], [3], [4], [2]]
-const trapsRow = [[null], [null], [0, 'trap'], [null], [null], [0, 'trap'], [null], [null]]
 const defaultHistory = [
     [
         {
@@ -53,9 +52,6 @@ const defaultHistory = [
                         return rabbitsRow.map(rabbit => rabbit.concat(SILVER))
                     case 1:
                         return otherAnimalsRow.map(animal => animal.concat(SILVER))
-                    case 2:
-                    case 5:
-                        return trapsRow
                     case 6:
                         return otherAnimalsRow.map(animal => animal.concat(GOLD))
                     case 7:
@@ -67,7 +63,7 @@ const defaultHistory = [
         }
     ]
 ]
-    
+
 export const Game = memo(() => {
     const [history, setHistory] = useState(defaultHistory)
     const [currentTurn, setCurrentTurn] = useState(0)
@@ -80,24 +76,25 @@ export const Game = memo(() => {
     const [enemySelectedRow, setEnemySelectedRow] = useState([])
     const [enemySelectedCell, setEnemySelectedCell] = useState([])
     const enemy = playerOnTurn === GOLD ? SILVER : GOLD
-    
-    
+
     // Check if someone has won by eliminating the rabbits of the opponent OR got one of his rabbits to the opposite side of the board
     const silverRabbitsLeft = board.flat().filter(elem => elem[0] === 1 && elem[1] === SILVER)[0]
     const goldRabbitsLeft = board.flat().filter(elem => elem[0] === 1 && elem[1] === GOLD)[0]
-    const checkForWinner = ()  => {
+    const checkForWinner = () => {
         for(let i = 0; i < 8; i++){
-            if ( (board[0][i][0] === 1 && board[0][i][1] === GOLD) || silverRabbitsLeft === undefined ) {
+            if ((board[0][i][0] === 1 && board[0][i][1] === GOLD) || silverRabbitsLeft === undefined ) {
                 return GOLD
             }
-            
-            if ( (board[7][i][0] === 1 && board[7][i][1] === SILVER) || goldRabbitsLeft === undefined) {
+
+            if ((board[7][i][0] === 1 && board[7][i][1] === SILVER) || goldRabbitsLeft === undefined) {
                 return SILVER
             }
+
+            return undefined
         }
     }
 
-    const neighborsOfSelected = [ 
+    const neighborsOfSelected = [
         ownSelRow > 0 ? board[ownSelRow - 1][ownSelCell] : [],
         ownSelCell > 0 ? board[ownSelRow][ownSelCell - 1] : [],
         ownSelCell < 7 ? board[ownSelRow][ownSelCell + 1] : [],
@@ -140,7 +137,6 @@ export const Game = memo(() => {
         }
     }
 
-    
     const handleCellClick = (rowIdx, cellIdx) => () => {
         const clickedFigurePower = board[rowIdx][cellIdx][0]
         const clickedFigureOwner = board[rowIdx][cellIdx][1]
@@ -155,7 +151,7 @@ export const Game = memo(() => {
         if (history.length < 3 && ownSelRow !== undefined && board[rowIdx][cellIdx][1] === playerOnTurn && board[rowIdx][cellIdx][0] !== null) {
             const newHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
             const switchedFigure = board[rowIdx][cellIdx]
-            
+
             board[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
             board[ownSelRow][ownSelCell] = switchedFigure
 
@@ -170,7 +166,7 @@ export const Game = memo(() => {
             setSelected(board[rowIdx][cellIdx])
             setEnemySelected([])
             setEnemySelectedRow([])
-            setEnemySelectedCell([])            
+            setEnemySelectedCell([])
         }
 
         // Set the enemy figure that the player wants to move
@@ -180,25 +176,25 @@ export const Game = memo(() => {
                     setEnemySelected(board[rowIdx][cellIdx])
                     setEnemySelectedRow(rowIdx)
                     setEnemySelectedCell(cellIdx)
-                }                       
-            }       
+                }
+            }
         }
-        
+
         // Selecting own figure
-        if (clickedFigurePower > 0 && clickedFigureOwner !== null) { 
+        if (clickedFigurePower > 0 && clickedFigureOwner !== null) {
             setSelectedCell([rowIdx, cellIdx])
             if (clickedFigureOwner === enemy) {
                 setSelectedCell([ownSelRow, ownSelCell])
             }
-            return     
+            return
         }
-        
+
         // Moving figure
         if (history.length > 2 && ownSelRow !== undefined && selectedCell.length === 2 && board[ownSelRow][ownSelCell][1] === playerOnTurn && currentMove < 4 && movesLeft > 0) {
-            const nextHistory = history.map(turns => turns.map(move => Object.assign({}, move)))     
+            const nextHistory = history.map(turns => turns.map(move => Object.assign({}, move)))
             const clickedFigure = board[ownSelRow][ownSelCell]
             const nextBoard = board.map(row => [...row])
-            
+
             // Silver Rabbits valid moves
             if(!checkIfFrozen() && clickedFigure[0] === 1 && clickedFigure[1] === 'silver') {
                 for (let i = 0; i < 3; i++) {
@@ -207,7 +203,7 @@ export const Game = memo(() => {
                     if (board[ownSelRow][ownSelCell] === validSilverRabbitsMoves[i]) {
                         nextBoard[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
                         nextBoard[ownSelRow][ownSelCell] = [null]
-                    
+
                         setSelectedCell([rowIdx, cellIdx])
 
                         // Save moves to history
@@ -217,14 +213,13 @@ export const Game = memo(() => {
                             winner,
                             board: nextBoard
                         })
-                    
+
                         setCurrentMove(currentMove + 1)
                         setHistory(nextHistory)
                     }
                 }
             }
 
-        
             // Gold Rabbits valid moves
             if (!checkIfFrozen() && clickedFigure[0] === 1 && clickedFigure[1] === 'gold') {
                 for (let i = 1; i < 4; i++) {
@@ -233,7 +228,7 @@ export const Game = memo(() => {
                     if (board[ownSelRow][ownSelCell] === validGoldRabbitsMoves[i]) {
                         nextBoard[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
                         nextBoard[ownSelRow][ownSelCell] = [null]
-                    
+
                         setSelectedCell([rowIdx, cellIdx])
 
                         // Save moves to history
@@ -243,14 +238,13 @@ export const Game = memo(() => {
                             winner,
                             board: nextBoard
                         })
-                    
+
                         setCurrentMove(currentMove + 1)
                         setHistory(nextHistory)
                     }
                 }
             }
 
-        
             // Other figures valid moves
             if (!checkIfFrozen() && clickedFigure[0] > 1) {
                 for (let i = 0; i < 4; i++) {
@@ -275,7 +269,7 @@ export const Game = memo(() => {
                     }
                 }
             }
-            
+
             // Pushing and pulling Figures
             if (enemySelected.length > 1 && !checkIfFrozen()) {
                 for (let i = 0; i < 4; i++) { 
@@ -285,7 +279,7 @@ export const Game = memo(() => {
                         nextBoard[rowIdx][cellIdx] = board[ownSelRow][ownSelCell]
                         nextBoard[ownSelRow][ownSelCell] = board[enemySelectedRow][enemySelectedCell]
                         nextBoard[enemySelectedRow][enemySelectedCell] = [null]
-                        
+
                         setSelectedCell([rowIdx, cellIdx])
 
 
@@ -303,14 +297,14 @@ export const Game = memo(() => {
                         setCurrentMove(currentMove + 1)
                         setHistory(nextHistory)
                     }
-                    
+
                     // Pushing enemy figure
                     if (rowIdx === neighPosOfEnemy[i][0] && cellIdx === neighPosOfEnemy[i][1]) {
 
                         nextBoard[rowIdx][cellIdx] = board[enemySelectedRow][enemySelectedCell]                       
                         nextBoard[enemySelectedRow][enemySelectedCell] = board[ownSelRow][ownSelCell]
                         nextBoard[ownSelRow][ownSelCell] = [null]
-                        
+
                         setSelectedCell([enemySelectedRow, enemySelectedCell])
 
 
@@ -331,10 +325,9 @@ export const Game = memo(() => {
                 }
             }
             checkTraps(nextBoard)
-        } 
-        
+        }
     }
-    
+
     return (
         <div className='game'>
             <div className='play-field'>
@@ -348,13 +341,14 @@ export const Game = memo(() => {
                         setSelected={setSelected}
                         setEnemySelected={setEnemySelected}
                         setEnemySelectedRow={setEnemySelectedRow}
-                        setEnemySelectedCell={setEnemySelectedCell}                         
+                        setEnemySelectedCell={setEnemySelectedCell}
                     />
-
                     {
-                       history.length < 3 ? `Rearrange figures`
-                       : typeof(checkForWinner()) === 'string' ? `Winner is ${checkForWinner()}` 
-                       : `Moves left: ${history[currentTurn][currentMove].movesLeft}`
+                       history.length < 3
+                           ? `Rearrange figures`
+                           : typeof(checkForWinner()) === 'string'
+                               ? `Winner is ${checkForWinner()}`
+                               : `Moves left: ${history[currentTurn][currentMove].movesLeft}`
                     }
                     <EndTurn
                         history={history}
@@ -371,12 +365,12 @@ export const Game = memo(() => {
                         setEnemySelectedRow={setEnemySelectedRow}
                         setEnemySelectedCell={setEnemySelectedCell} 
                     />
-                </div> 
+                </div>
                 <div className='board'>
                     {board.map((row, rowIdx) => (
                         <div className='row' key={rowIdx}>
                             {row.map((cell, cellIdx) => {
-                                let classNames = 'cell' 
+                                let classNames = 'cell'
 
                                 if (rowIdx === ownSelRow && cellIdx === ownSelCell && playerOnTurn === GOLD) {
                                     classNames = classNames + ' gold-own-selected'                                   
@@ -392,10 +386,14 @@ export const Game = memo(() => {
 
                                 if (playerOnTurn === SILVER && enemySelected.length > 1 && enemySelected[0] > 0  && enemySelectedRow === rowIdx && enemySelectedCell === cellIdx) {
                                     classNames = classNames + ' enemy-silver-selected'
-                                }                                    
-   
+                                }
+
+                                if ([2, 5].includes(rowIdx) && [2, 5].includes(cellIdx)) {
+                                    classNames = classNames + ' trap'
+                                }
+
                                 return (
-                                    <button 
+                                    <button
                                         className={classNames} 
                                         key={`${rowIdx}${cellIdx}`}
                                         onClick={handleCellClick( rowIdx, cellIdx )}
@@ -406,17 +404,17 @@ export const Game = memo(() => {
                                                     src={powerToImg[`${cell[0]} ${cell[1]}`]}
                                                     alt={cell[0]}
                                                 /> :
-                                                null                                
+                                                null
                                         }
                                     </button>
                                 )
                             })}
                         </div>
                     ))}
-                </div>                
+                </div>
             </div>
             <div className='game-info'>
-                <Instructions/>               
+                <Instructions/>
                 <TurnHistory
                     history={history}
                     setHistory={setHistory}
@@ -426,7 +424,7 @@ export const Game = memo(() => {
                     setSelected={setSelected}
                     setEnemySelected={setEnemySelected}
                     setEnemySelectedRow={setEnemySelectedRow}
-                    setEnemySelectedCell={setEnemySelectedCell}                     
+                    setEnemySelectedCell={setEnemySelectedCell}
                 />
                 <div className='turn-history'>
                     <MoveHistory
@@ -439,7 +437,7 @@ export const Game = memo(() => {
                         setSelected={setSelected}
                         setEnemySelected={setEnemySelected}
                         setEnemySelectedRow={setEnemySelectedRow}
-                        setEnemySelectedCell={setEnemySelectedCell}                         
+                        setEnemySelectedCell={setEnemySelectedCell}
                     />
                 </div>
             </div>
