@@ -154,14 +154,14 @@ body {
     height: 80vmin;
     width: 80vmin;
     position: relative;
-    transition: all 5s ease-in-out;
+    transition: all 500ms;
     align-items: center;
 }
 
 .instructions .close {
     position: absolute;
-    top: 20px;
-    right: 30px;
+    top: 1vmin;
+    right: 2vmin;
     transition: all 200ms;
     font-size: 30px;
     font-weight: bold;
@@ -174,8 +174,10 @@ body {
 }
 
 .images {
-    height: 80vmin;
-    width: 80vmin;
+    height: 78vmin;
+    width: 78vmin;
+    margin: auto;
+    display: block;
 }
 
 .history-turns {
@@ -261,8 +263,8 @@ body {
 
 .next {
     position: absolute;
-    bottom: 20px;
-    right: 30px;
+    bottom: 2vmin;
+    right: 3vmin;
     transition: all 200ms;
     font-size: 3.5vmin;
     font-weight: bold;
@@ -276,8 +278,8 @@ body {
 
 .previous {
     position: absolute;
-    bottom: 20px;
-    left: 30px;
+    bottom: 2vmin;
+    left: 3vmin;
     transition: all 200ms;
     font-size: 3.5vmin;
     font-weight: bold;
