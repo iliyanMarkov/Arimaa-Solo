@@ -24,10 +24,10 @@ export const TurnHistory = memo((props = {}) => {
 
                         return (
                             nameOfPlayer === 'Gold' ?
-                            <button onClick={changeToTurn(wantedTurn)} type="button" class="turns-btns-gold">
+                            <button onClick={changeToTurn(wantedTurn)} type="button" className="turns-btns-gold">
                                 {`${wantedTurn + 1}. Turn: ${nameOfPlayer}`}
                             </button> 
-                            : <button onClick={changeToTurn(wantedTurn)} type="button" class="turns-btns-silver">
+                            : <button onClick={changeToTurn(wantedTurn)} type="button" className="turns-btns-silver">
                                 {`${wantedTurn + 1}. Turn: ${nameOfPlayer}`}
                             </button>
 

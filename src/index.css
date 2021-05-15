@@ -257,7 +257,9 @@ body {
 }
 
 .trap {
+    background-repeat: no-repeat;
     background-image: url("./components/img/trap.png");
+    background-position: center;
     background-size: 80px;
 }
 

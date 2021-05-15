@@ -27,7 +27,7 @@ export const EndTurn = memo((props = {}) => {
     
     return (
         <>{
-            <button onClick={handleClick} type="button" class="end-turn-btn">
+            <button onClick={handleClick} type="button" className="end-turn-btn">
                 End Turn
             </button>
             }

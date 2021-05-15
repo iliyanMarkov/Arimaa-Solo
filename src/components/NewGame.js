@@ -14,9 +14,6 @@ export const NewGame = memo((props = {}) => {
                         return [...Array(8).keys()].map(() => [1]).map(rabbit => rabbit.concat('silver'))
                     case 1:
                         return [[2], [4], [3], [6], [5], [3], [4], [2]].map(animal => animal.concat('silver'))
-                    case 2:
-                    case 5:
-                        return [[null], [null], [0, 'trap'], [null], [null], [0, 'trap'], [null], [null]]
                     case 6:
                         return [[2], [4], [3], [6], [5], [3], [4], [2]].map(animal => animal.concat('gold'))
                     case 7:
@@ -39,7 +36,7 @@ export const NewGame = memo((props = {}) => {
     return (
         <>
             {
-                <button onClick={handleClick} type="button" class="new-game-btn">
+                <button onClick={handleClick} type="button" className="new-game-btn">
                     New Game
                 </button>
             }

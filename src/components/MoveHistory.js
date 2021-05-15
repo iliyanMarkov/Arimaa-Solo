@@ -22,7 +22,7 @@ export const MoveHistory = memo((props = {}) => {
                     {history[currentTurn].map((_, wantedMove) => {
 
                         return (
-                            <button key={wantedMove} onClick={changeToMove(wantedMove)} type="button" class="moves-btns">
+                            <button key={wantedMove} onClick={changeToMove(wantedMove)} type="button" className="moves-btns">
                                 {`${wantedMove}`}
                             </button>
                         )

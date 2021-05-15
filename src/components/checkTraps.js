@@ -17,7 +17,7 @@ export const checkTraps = (board) => {
         ].flat().filter(elem => elem === trapsOwners[i]))
 
         if (friendlyNeighborsOfTraps[i].includes(trapsOwners[i]) === false) {
-            board[traps[i][0]][traps[i][1]] = [0, 'trap']
+            board[traps[i][0]][traps[i][1]] = [null]
         }
     }
 }

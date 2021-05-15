@@ -65,20 +65,20 @@ export const Instructions = memo(() => {
 
     return ( 
         <>
-            <div class="box">
-            	<a class="tutorial" href="#popup">Tutorial</a>
+            <div className="box">
+            	<a className="tutorial" href="#popup">Tutorial</a>
             </div>
 
-            <div id="popup" class="overlay">
-            	<div class="instructions">
-            		<a class="close" href="http://localhost:3000/#">&times;</a>
+            <div id="popup" className="overlay">
+            	<div className="instructions">
+            		<a className="close" href="http://localhost:3000/#">&times;</a>
             		<div>
-                        <a class="previous" href="#popup" onClick={previousPhoto}>Previous</a>
-                        <a class="next" href="#popup" onClick={nextPhoto}>Next</a>
+                        <a className="previous" href="#popup" onClick={previousPhoto}>Previous</a>
+                        <a className="next" href="#popup" onClick={nextPhoto}>Next</a>
             		    {
                             <img
                                 alt='The instruction images'
-                                class="images"
+                                className="images"
                                 src={instructionPhotos[currentPicture]}
                             /> 
                         }

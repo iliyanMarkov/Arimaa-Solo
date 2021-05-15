@@ -20,8 +20,6 @@ import camelS from './img/5_silver.png'
 import elephantG from './img/6_gold.png'
 import elephantS from './img/6_silver.png'
 
-// TODO: change cellIdx to colIdx and other cell names
-// TODO: prevent no change turn
 const GOLD = 'gold'
 const SILVER = 'silver'
 const powerToImg = {
